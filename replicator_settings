@@ -1,0 +1,46 @@
+connectorclass - ReplicatorSourceConnector
+name - replicator-dc1-to-dc2-topic1
+
+task max - 1
+key converter clas - io.confluent.connect.replicator.util.ByteArrayConverter
+val                - io.confluent.connect.replicator.util.ByteArrayConverter
+
+header             - io.confluent.connect.replicator.util.ByteArrayConverter
+
+interceptor.class - io.confluent.monitoring.clients.interceptor.MonitoringConsumingInterceptor ( removed. did not work.)
+Enable provenance headers - True
+
+red.lan:9092
+
+yellow.lan:9092
+
+Additional properties
+
+
+src.kafka.timestamps.producer.confluent.monitoring.interceptor.bootstrap.servers - server:9092
+src.kafka.timestamps.producer.interceptor.classes - io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
+src.consumer.confluent.monitoring.interceptor.bootstrap.servers  - broker-dc2:29092
+
+dest.kafka.replication.factor - 1
+src.consumer.group.id - replicator-dc1-to-dc2-topic1
+
+
+
+security.protocol=SASL_SSL
+sasl.mechanism=PLAIN
+
+sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username="client" password="client-secret";
+
+/var/ssl/red/client.keystore.jks
+/var/ssl/red/client.truststore.jks
+
+confluent
+
+
+
+
+
+Destination
+
+dest.kafka.sasl.jaas.config
+org.apache.kafka.common.security.plain.PlainLoginModule required username="client" password="client-secret";

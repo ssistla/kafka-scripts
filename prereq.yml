@@ -1,0 +1,41 @@
+---
+  - hosts: aws_pub
+    user: root
+    tasks:
+      - name: Copy Multiple files
+        copy: src={{ item.src }} dest={{ item.dest }}
+        with_items:
+          - { src: '/etc/yum.repos.d/confluent.repo', dest: '/etc/yum.repos.d/confluent.repo' }
+      - name: yum install epel
+        command: yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+      - name: ansible create directory example
+        file:
+          path: "{{ item }}"
+          state: directory    
+        with_items:
+          - '/var/ssl/private'
+          - '/software/cp-ansible/generated_ssl_files'
+      - name: yum install python3
+        yum: 
+          name: python3
+          state: present
+      - name: alternatives set python /usr/bin/python3
+        command: alternatives --set python /usr/bin/python3
+
+  - hosts: aws_primary
+    user: root
+    tasks:
+      - name: yum install git
+        yum:
+          name: git
+          state: present
+      - name: pip3 install ansible
+        command: pip3 install ansible
+      - name: git clone
+        command: git clone https://github.com/confluentinc/cp-ansible.git /software/cp-ansible
+      - name: Copy Multiple files
+        copy: src={{ item.src }} dest={{ item.dest }}
+        with_items:
+          - { src: '/etc/ansible/hosts', dest: '/etc/ansible/hosts' }
+          - { src: '/software/cp-ansible/hosts.yml', dest: '/software/cp-ansible/hosts.yml' }
+          - { src: '/software/cp-ansible/all.yml', dest: '/software/cp-ansible/all.yml' }

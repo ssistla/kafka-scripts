@@ -1,0 +1,26 @@
+{
+  "name": "connector1",
+  "config": {
+    "connector.class": "io.confluent.connect.ibm.mq.IbmMQSourceConnector",
+    "kafka.topic":"MyKafkaTopicName",
+    "mq.hostname":"yellow.lan",
+    "mq.port":"1414",
+    "mq.transport.type":"client",
+    "mq.queue.manager":"QM1",
+    "mq.channel":"DEV.APP.SVRCONN",
+    "mq.user.name":"app",
+    "mq.username":"app",
+    "mq.password":"password",
+    "jms.destination.name":"DEV.QUEUE.1",
+    "jms.destination.type":"queue",
+    "confluent.license":"",
+    "confluent.topic":"_confluent-command",
+    "confluent.topic.bootstrap.servers":"red.lan:9092",
+    "security.protocol":"SASL_SSL",
+    "ssl.endpoint.identification.algorithm":"",
+    "ssl.truststore.location":"/var/ssl/private/client.truststore.jks",
+    "ssl.truststore.password":"confluent",
+    "sasl.mechanism":"PLAIN",
+    "sasl.jaas.config":"org.apache.kafka.common.security.plain.PlainLoginModule required username=\"client\" password=\"client-secret\";"
+  }
+}

@@ -1,0 +1,2 @@
+/bin/kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --list  --topic '*' --group '*'
+/bin/kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --list --topic '*' --cluster

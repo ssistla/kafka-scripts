@@ -10,5 +10,5 @@ systemctl start confluent-ksql
 sleep 1000
 # testing Branches
 # Add line for QA
-#Add line for feature/develop
+#Add line for f/d
 systemctl start confluent-kafka-connect
